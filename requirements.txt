@@ -1,0 +1,9 @@
+Flask
+Flask-Cors
+Flask-RESTful
+Flask-SQLAlchemy
+Flask-Migrate
+psycopg2-binary
+SQLAlchemy
+Werkzeug
+jose

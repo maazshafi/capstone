@@ -1,20 +1,17 @@
 import os
-from posix import PRIO_USER
-from flask.json import tojson_filter
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.sql.sqltypes import DateTime
 from flask_sqlalchemy import SQLAlchemy
 import json
-from flask_migrate import Migrate
 
 USERNAME = os.environ.get('capstone_db_username')
 PASSWORD = os.environ.get('capstone_db_password')
 
 database_name = "capstone_test"
-database_path = "postgres://{}:{}@{}/{}".format(USERNAME, PASSWORD, 'localhost:5432', database_name)
+database_path = "postgresql://{}:{}@{}/{}".format(USERNAME, PASSWORD, 'localhost:5432', database_name)
 
 db = SQLAlchemy()
-migrate = Migrate()
+
 
 '''
 setup_db(app)
@@ -26,8 +23,8 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    migrate.init_app(app)
     db.create_all()
+    return db
 
 class Movie(db.Model):
     __tablename__ = 'movies'

@@ -1,1 +1,10 @@
-
+export SECRET=""
+export ASSISTANT_TOKEN=""
+export DIRECTOR_TOKEN=""
+export PRODUCER_TOKEN=""
+export AUTH0_DOMAIN=""
+export API_AUDIENCE=""
+export ALGORITHMS=['RS256']
+export FLASK_APP=app.py
+export FLASK_ENV=development
+export TEST_DATABASE_URI="postgres://localhost:5432/capstone_test"
