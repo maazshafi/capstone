@@ -7,4 +7,5 @@ export API_AUDIENCE=""
 export ALGORITHMS=['RS256']
 export FLASK_APP=app.py
 export FLASK_ENV=development
-export TEST_DATABASE_URI="postgres://localhost:5432/capstone_test"
+export TEST_DATABASE_URI="postgresql://postgres:postgres@localhost:5432/capstone_test"
+export TEST_DATABASE_NAME="capstone_test"
