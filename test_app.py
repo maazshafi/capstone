@@ -55,6 +55,13 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['movies'])
 
+    def test_get_actors(self):
+        res = self.client().get('/actors')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actors'])
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
