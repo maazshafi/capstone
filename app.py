@@ -22,9 +22,9 @@ def create_app(test_config=None):
       )
       return response
 
-
   @app.route('/movies', methods=['GET'])
-  def get_movies():
+  @requires_auth(permission='get:movies')
+  def get_movies(payload):
     try:
       movies = Movie.query.all()
 
@@ -40,7 +40,8 @@ def create_app(test_config=None):
 
 
   @app.route('/movies', methods=['POST'])
-  def create_movie():
+  @requires_auth(permission='post:movies')
+  def create_movie(payload):
     body = request.get_json()
 
     new_title = body.get('title', None)
@@ -60,7 +61,8 @@ def create_app(test_config=None):
       abort(422)
 
   @app.route('/movies/<int:movie_id>', methods=['DELETE'])
-  def delete_movie(movie_id):
+  @requires_auth(permission='delete:movies')
+  def delete_movie(payload, movie_id):
     try:
       movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
       
@@ -75,7 +77,8 @@ def create_app(test_config=None):
       abort(422)
 
   @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-  def update_movie(movie_id):
+  @requires_auth(permission='patch:movies')
+  def update_movie(payload, movie_id):
     body = request.get_json()
 
     new_title = body.get('title', None)
@@ -105,7 +108,8 @@ def create_app(test_config=None):
 
 
   @app.route('/actors', methods=['GET'])
-  def get_actors():
+  @requires_auth(permission='get:actors')
+  def get_actors(payload):
     try:
       actors = Actor.query.all()
       
@@ -120,7 +124,8 @@ def create_app(test_config=None):
       abort(404)
 
   @app.route('/actors', methods=['POST'])
-  def create_actor():
+  @requires_auth(permission='post:actors')
+  def create_actor(payload):
     body = request.get_json()
 
     new_name = body.get('name', None)
@@ -134,7 +139,7 @@ def create_app(test_config=None):
       actor = Actor(name=new_name, age=new_age, gender=new_gender)
       actor.insert()
 
-      return jsonify({'success': True, 'movie': actor.format()})
+      return jsonify({'success': True, 'actor': actor.format()})
     
     except Exception as e:
       print(e)
@@ -143,7 +148,8 @@ def create_app(test_config=None):
 
 
   @app.route('/actors/<int:actor_id>', methods=['DELETE'])
-  def delete_actor(actor_id):
+  @requires_auth(permission='delete:actors')
+  def delete_actor(payload, actor_id):
     try:
       actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
       
@@ -158,7 +164,8 @@ def create_app(test_config=None):
       abort(422)
 
   @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-  def update_actor(actor_id):
+  @requires_auth(permission='patch:actors')
+  def update_actor(payload, actor_id):
     body = request.get_json()
 
     new_name = body.get('name', None)
@@ -185,7 +192,7 @@ def create_app(test_config=None):
 
       actor.update()
 
-      return jsonify({'success': True, 'movie': actor.format()})
+      return jsonify({'success': True, 'actor': actor.format()})
 
     except Exception as e:
       print(e)
