@@ -1,7 +1,6 @@
 """Second Migration
 
 Revision ID: 82a03c6faa9b
-Revises: d8fc9a06cb11
 Create Date: 2021-09-14 13:45:05.508321
 
 """
@@ -11,7 +10,6 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '82a03c6faa9b'
-down_revision = 'd8fc9a06cb11'
 branch_labels = None
 depends_on = None
 
