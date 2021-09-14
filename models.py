@@ -4,11 +4,14 @@ from sqlalchemy.sql.sqltypes import DateTime
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-USERNAME = os.environ.get('capstone_db_username')
-PASSWORD = os.environ.get('capstone_db_password')
 
-database_name = "capstone_test"
-database_path = "postgresql://{}:{}@{}/{}".format(USERNAME, PASSWORD, 'localhost:5432', database_name)
+if "DATABASE_URL" in os.environ:
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+else:
+    DATABASE_URL = os.environ.get('TEST_DATABASE_URL')
+
+
+database_path = DATABASE_URL
 
 db = SQLAlchemy()
 
@@ -23,7 +26,7 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    db.create_all()
+    # db.create_all()
     return db
 
 class Movie(db.Model):
