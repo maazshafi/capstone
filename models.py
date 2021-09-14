@@ -6,7 +6,7 @@ import json
 
 
 if "DATABASE_URL" in os.environ:
-    DATABASE_URL = os.environ.get('DATABASE_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
 else:
     DATABASE_URL = os.environ.get('TEST_DATABASE_URL')
 
