@@ -191,7 +191,7 @@ def create_app(test_config=None):
         abort(404)
     
       if new_name is not None:
-        actor.title = new_name
+        actor.name = new_name
       if new_age is not None:
         actor.age = new_age
       if new_gender is not None:
